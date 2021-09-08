@@ -1,9 +1,11 @@
-from flask import Flask, request, render_template
+import numpy as np
 import pandas as pd
-import joblib
+from flask import Flask, request, jsonify, render_template
 import pickle
+import sys
+import logging
 
-app = Flask(__name__, template_folder='templates')
+
 
 # @app.route("/api", methods = ["GET", "POST"])
 # def home():
@@ -47,8 +49,11 @@ app = Flask(__name__, template_folder='templates')
 #     else:
 #         return "get method"
 
+app = Flask(__name__, template_folder='templates')
+
 @app.route("/", methods = ["GET", "POST"])
-def index():
+
+def home():
     if request.method == "POST":
         my_dict = {
             "time": request.form["time"],
