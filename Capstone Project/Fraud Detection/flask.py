@@ -95,4 +95,4 @@ if __name__ == "__main__":
     loaded_scaler = pickle.load(open("scaler.pkl", "rb"))
     loaded_columns = pickle.load(open("Xcolums.pkl", "rb"))
 
-    app.run(debug=True, host="0.0.0.0")
+    app.run(debug=True, port=80, host="0.0.0.0")
