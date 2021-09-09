@@ -2,114 +2,188 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>FRAUD DETECTION</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='styles/index.css') }}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Hachi+Maru+Pop&family=Lobster&display=swap" rel="stylesheet">
 </head>
 <body>
-    <form action="#" method="POST">
+    <div id="main">
+        <h2 id="title">FRAUD <span>DETECTION</span></h2>
+        <div>
+            <img src="https://www.getloanme.com/uploads/files/how-to-get-approved-for-a-business-credit-card.jpg" alt="Credit Card">
+        </div>
+        <div>
+            <p id="image caption">Credit Card Fraud Detection</p>
+        </div>   
+        <form action="{{ url_for('predict')}}"method="post">    
+        <div>
+            <table id = "center" style="border: 1px solid black;">            
+                
+                <tr>
+                    <td>
+                        <ul>
+                            <li>
+                                <label for="time">Time</label> <br>
+                                <input type="number" name="time" value="84692.0" min="0.000000" max="175000"> <br>
+                            </li>
+                            <li>
+                                <label for="v1">V1</label> <br>
+                                <input type="number" name="v1" value="0.018109" min="-56.407510" max="2.454930"> <br>
+                            </li>
+                            <li>
+                                <label for="v2">V2</label> <br>
+                                <input type="number" name="v2" value="0.065486" min="-72.715728" max="22.057729"> <br>
+                            </li>
+                            <li>
+                                <label for="v3">V3</label> <br>
+                                <input type="number" name="v3" value="0.179846" min="-48.325589" max="9.382558"> <br>
+                            </li>
+                            <li>
+                                <label for="v4">V4</label> <br>
+                                <input type="number" name="v4" value="-0.019847" min="-5.683171", max="16.875344"> <br>
+                            </li>       
+                        </ul>
+                    </td> 
 
-    <label for="time">Time (0 - 175000)</label> <br>
-    <input type="number" name="time" value="84692.0"><br>
+                    <td>
+                        <ul>
+                            <li>
+                                <label for="v5">V5</label> <br>
+                                <input type="number" name="v5" value="-0.054336" min="-113.743307", max="34.801666"> <br>  
+                            </li>
+                            <li>
+                                <label for="v6">V6</label> <br>
+                                <input type="number" name="v6" value="-0.274187" min="-26.160506" max="73.301626"> <br>
+                            </li>
+                            <li>
+                                <label for="v7">V7</label> <br>
+                                <input type="number" name="v7" value="0.040103" min="-43.557242" max="120.589494"> <br>                                
+                            </li>
+                            <li>
+                                <label for="v8">V8</label> <br>
+                                <input type="number" name="v8" value="0.022358" min="-73.216718" max="20.007208"> <br>
+                            </li>
+                            <li>
+                                <label for="v9">V9</label> <br>
+                                <input type="number" name="v9" value="-0.051429" min="-13.434066" max="15.594995"> <br>
+                            </li>
+                        </ul>
+                  
+                    </td>
+                    <td>
+                        <ul>
+                            <li>
+                                <label for="v10">V10</label> <br>
+                                <input type="number" name="v10" value="-0.092917" min="-24.588262" max="23.745136"> <br>
+                            </li>
+                            <li>
+                                <label for="v11">V11</label> <br>
+                                <input type="number" name="v11" value="-0.032757" min="-4.797473" max="12.018913"> <br>
+                            </li>
+                            <li>
+                                <label for="v12">V12</label> <br>
+                                <input type="number" name="v12" value="0.140033" min="-18.683715" max="7.848392"> <br>
+                            </li>
+                            <li>
+                                <label for="v13">V13</label> <br>
+                                <input type="number" name="v13" value="-0.013568" min="-5.791881" max="7.126883"> <br>
+                            </li>
+                            <li>
+                                <label for="v14">V14</label> <br>
+                                <input type="number" name="v14" value="0.050601" min="-19.214325" max="10.526766"> <br>
+                            </li>
+                        </ul>
 
-    <label for="v1">V1 (-60 - 2.46)</label> <br>
-    <input type="number" name="v1" value="0.018109"> <br>
-
-    <label for="v2">V2 (-75 - 25)</label> <br>
-    <input type="number" name="v2" value="0.065486"> <br>
-
-    <label for="v3">V3 (-50 - 10)</label> <br>
-    <input type="number" name="v3" value="0.179846"> <br>
-
-    <label for="v4">V4 (-6 - 17)</label> <br>
-    <input type="number" name="v4" value="-0.019847"> <br>
-
-    <label for="v5">V5 (-115 - 35)</label> <br>
-    <input type="number" name="v5" value="-0.054336"> <br>
-
-    <label for="v6">V6 (-27 - 75)</label> <br>
-    <input type="number" name="v6" value="-0.274187"> <br>
-
-    <label for="v7">V7 (-42 - 120)</label> <br>
-    <input type="number" name="v7" value="0.040103"> <br>
-
-    <label for="v8">V8 (-75 - 20)</label> <br>
-    <input type="number" name="v8" value="0.022358"> <br>
-
-    <label for="v9">V9 (-15 - 15)</label> <br>
-    <input type="number" name="v9" value="-0.051429"> <br>
-
-    <label for="v10">V10 (-25 - 25)</label> <br>
-    <input type="number" name="v10" value="-0.092917"> <br>
-
-    <label for="v11">V11 (-5 - 12)</label> <br>
-    <input type="number" name="v11" value="-0.032757"> <br>
-
-    <label for="v12">V12 (-20 - 8)</label> <br>
-    <input type="number" name="v12" value="0.140033"> <br>
-
-    <label for="v13">V13 (-6 - 7)</label> <br>
-    <input type="number" name="v13" value="-0.013568"> <br>
-
-    <label for="v14">V14 (-20 - 10)</label> <br>
-    <input type="number" name="v14" value="0.050601"> <br>
-
-    <label for="v15">V15 (-5 - 9)</label> <br>
-    <input type="number" name="v15" value="0.048072"> <br>
-
-    <label for="v16">V16 (-15 - 18)</label> <br>
-    <input type="number" name="v16" value="0.066413"> <br>
-
-    <label for="v17">V17 (-25 - 10)</label> <br>
-    <input type="number" name="v17" value="-0.065676"> <br>
-
-    <label for="v18">V18 (-10 - 5)</label> <br>
-    <input type="number" name="v18" value="-0.003636"> <br>
-
-    <label for="v19">V19 (-8 - 6)</label> <br>
-    <input type="number" name="v19" value="0.003735"> <br>
-
-    <label for="v20">V20 (-55 - 40)</label> <br>
-    <input type="number" name="v20" value="-0.062481"> <br>
-
-    <label for="v21">V21 (-35 - 28)</label> <br>
-    <input type="number" name="v21" value="-0.029450"> <br>
-
-    <label for="v22">V22 (-11 - 11)</label> <br>
-    <input type="number" name="v22" value="0.006782"> <br>
-
-    <label for="v23">V23 (-45 - 23)</label> <br>
-    <input type="number" name="v23" value="-0.011193"> <br>
-
-    <label for="v24">V24 (-3 - 5)</label> <br>
-    <input type="number" name="v24" value="0.040976"> <br>
-
-    <label for="v25">V25 (-10 - 8)</label> <br>
-    <input type="number" name="v25" value="0.016594"> <br>
-
-    <label for="v26">V26 (-3 - 4)</label> <br>
-    <input type="number" name="v26" value="-0.052139"> <br>
-
-    <label for="v27">V27 (-23 - 32)</label> <br>
-    <input type="number" name="v27" value="0.001342"> <br>
-
-    <label for="v28">V28 (-15 - 34)</label> <br>
-    <input type="number" name="v28" value="0.011244"> <br>
-
-    <label for="amount">Amount (0 - 26000)</label> <br>
-    <input type="number" name="amount" value="22.000000"> <br>
-
-<input type="submit" value="P R E D I C T">  
-<p>
-
-    {% if result%}
-    {{ result }}
-    {%else%}
-    no prediction made
-    {%endif%}
-
-</p>
-
-    </form>
-</body>
-</html>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>
+                                <label for="v15">V15</label> <br>
+                                <input type="number" name="v15" value="0.048072" min="-4.498945" max="8.877742"> <br>
+                            </li>
+                            <li>
+                                <label for="v16">V16</label> <br>
+                                <input type="number" name="v16" value="0.066413" min="-0.468037" max="17.315112"> <br>
+                            </li>
+                            <li>
+                                <label for="v17">V17</label> <br>
+                                <input type="number" name="v17" value="-0.065676" min="-25.162799" max="9.253526"> <br>
+                            </li>
+                            <li>
+                                <label for="v18">V18</label> <br>
+                                <input type="number" name="v18" value="-0.003636" min="-9.498746" max="5.041069"> <br>
+                            </li>
+                            <li>
+                                <label for="v19">V19</label> <br>
+                                <input type="number" name="v19" value="0.003735" min="-7.213527" max="5.591971"> <br>
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>
+                                <label for="v20">V20</label> <br>
+                                <input type="number" name="v20" value="-0.062481" min="-54.497720" max="39.420904"> <br>
+                            </li>
+                            <li>
+                                <label for="v21">V21</label> <br>
+                                <input type="number" name="v21" value="-0.029450" min="-34.830382" max="27.202839"> <br>
+                            </li>
+                            <li>
+                                <label for="v22">V22</label> <br>
+                                <input type="number" name="v22" value="0.006782" min="-10.933144" max="10.503090"> <br>
+                            </li>
+                            <li>
+                                <label for="v23">V23</label> <br>
+                                <input type="number" name="v23" value="-0.011193" min="-44.807735" max="22.528412"> <br>
+                            </li>
+                            <li>
+                                <label for="v24">V24</label> <br>
+                                <input type="number" name="v24" value="0.040976" min="-2.836627" max="4.584549"> <br>
+                            </li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>
+                                <label for="v25">V25</label> <br>
+                                <input type="number" name="v25" value="0.016594" min="-10.295397" max="7.519589"> <br>
+                            </li>
+                            <li>
+                                <label for="v26">V26</label> <br>
+                                <input type="number" name="v26" value="-0.052139" min="-2.604551" max="3.517346"> <br>
+                            </li>
+                            <li>
+                                <label for="v27">V27</label> <br>
+                                <input type="number" name="v27" value="0.001342" min="-22.565679" max="31.612198"> <br>
+                            </li>
+                            <li>
+                                <label for="v28">V28</label> <br>
+                                <input type="number" name="v28" value="0.011244" min="-15.430084" max="33.847808"> <br>
+                            </li>
+                            <li>
+                                <label for="amount">Amount</label> <br>
+                                <input type="number" name="amount" value="22.000000" min="0.000000" max="25691.160000"> <br>
+                            </li>
+                        </ul>
+                    </td>                    
+                </tr>      
+                
+            </table>
+            <div id="marvel">
+                <h1 class="comics">PREDICT</h1>
+                <div class="list">
+                    <button type="submit" class="btn btn-primary btn-block btn-lg">PREDICT</button>
+                    <p>
+                        {{ prediction_text }}                
+                    </p>   
+                </div>
+            </div>
+            
+        </div>
+        </form>    
+        <div id="footer">
+            <p>Read more about Fraud Detection on <a href="https://en.wikipedia.org/wiki/Data_analysis_techniques_for_fraud_detection" id= "link" target="_blank">wikipedia</a></p>
+        </div>

@@ -1,0 +1,79 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+#main {
+    
+    margin: auto;
+    width: 80%;
+    height: 700px;    
+
+}
+#title {
+    font-family: "Lobster", cursive;
+    text-align: center;
+    font-size: 90px;
+}
+
+span {
+    color: red;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 350px;
+    border-radius: 20px;
+}
+
+p {
+    text-align: center;
+    margin-top: 3em;
+    font-size: 23px;
+}
+
+.comics {
+    font-family: 'Lobster', cursive;
+    font-size: 60px;
+    padding-top: 20px;
+}
+
+li {
+    font-size: 23px;
+    line-height: 1.8;
+
+}
+
+#link {
+    text-decoration: none;
+    color: red;
+    text-align: center;
+    font-size: 25px;
+
+
+}
+
+#link:hover {
+    color: white;
+
+}
+
+#main {    
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6)), url(https://www.kenresearch.com/blog/wp-content/uploads/2018/11/Global-Fraud-Detection-and-Prevention-Market.jpg);
+    background-size: cover;
+    text-align: center;
+    color: white;
+    height: 110vh;
+}
+
+#center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
