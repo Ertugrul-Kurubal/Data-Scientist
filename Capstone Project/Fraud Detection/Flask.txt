@@ -1,0 +1,35 @@
+AWS EC2 Terminal (Bash vb.) Commands
+1- sudo su
+2- sudo yum update -y
+3- sudo yum install tmux
+4- python3 -m venv flask_env  ((flask_env) environment ismi herhangi bir isim verilebilir)
+5- source flask_env/bin/activate
+6- pip install --upgrade pip
+7- pip install flask (pip3 olarakta kullanılabilir.)
+8- pip install pandas
+9- pip install scikit-learn
+10- pip install pickleshare
+11- mkdir APP  (Proje için gerekli tüm dosyaları (app.py, pickle vb.) bu klasörün içerisine ekliyoruz)
+12- chmod 777 APP/  (Eğer dosyaları kopyalarken (permission) hatası verirse bu komutla APP klasörüne gerekli izinleri veriyoruz)
+13- cd APP
+14- ls
+15- tmux
+16- python3 app.py     ya da    python app.py  (APP klasörü içerindeyken çalıştırılmalı)
+17- CTRL+B, D (tmux detached)
+
+Tmux CheatSheet
+1- start new:
+-tmux
+2- start new with session name:
+-tmux new -s myname 
+3- attach:
+-tmux a  #  (or at, or attach)
+4- attach to named:
+-tmux a -t myname
+5- list sessions:
+-tmux ls
+6- kill session:
+-tmux kill-session -t myname
+NOT: (myname) session adı, tmux kill-session -t den sonra sadece session başındaki numarayı yazarakta sonlandırabiliriz.  
+
+
