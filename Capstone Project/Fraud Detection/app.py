@@ -34,5 +34,6 @@ def predict():
         return render_template('index.html', prediction_text='PLEASE ENTER THE CORRECT VALUES IN THE FIELDS TO PREDICT THE FRAUD OF THE TRANSACTION.') 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # app.run(debug=True)
+    app.run(debug=True, port=80, host="0.0.0.0")
 
