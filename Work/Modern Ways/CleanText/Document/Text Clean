@@ -1,0 +1,22 @@
+-Removing extra spaces
+
+import re
+doc = "NLP  is an interesting     field.  "
+new_doc = re.sub("s+"," ", doc)
+print(new_doc)
+
+-Removing Punctuations
+
+text = "Hello! How are you!! I'm very excited that you're going for a trip to Europe!! Yayy!"
+re.sub("[^-9A-Za-z ]", "" , text)
+
+-Case Normalization
+
+import string
+text = "Hello! How are you!! I'm very excited that you're going for a trip to Europe!! Yayy!"
+text_clean = "".join([i.lower() for i in text if i not in string.punctuation])
+text_clean
+
+test_text = "What do I want     dont let it be Kung Pow en. Mrs. Bing Oh, you watched the show! Whatd you think?  , I think you need to come out of your shell just a little.   What is this dive? Only you couldve picked this place. Mrs. Bing Oooh, cmon, shut up, its fun. Gimme a hug.  , I think were ready for some tequila.  I know I am. Mrs. Bing  doing shots? .   in. Mrs. Bing There ygo. ? ,  not really a shot drinking kinda guy.  !  sorry were late, we, uh, kinda just, yknow, lost track of time.  But a man can change."
+
+re.sub(r' \S', ' ', test_text)
