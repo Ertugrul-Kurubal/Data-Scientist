@@ -39,3 +39,5 @@ model = PipelineModel(stages=[documenter, sentencerDL])
 result = model.transform(df)
 
 pd_res = result.select("sentences.result").toPandas()
+
+pd_res.to_csv("Spark_Sentence_Tokenize6.csv", index=False)
