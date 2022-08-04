@@ -10,3 +10,12 @@ tr.lemma.spacylookup.json
 tr.lemma.tourism.json
 10000 word.xlsx
 Turkish_10000_Word_All_Lemma_Result.xlsx
+tr.pos.json
+tr.pos.ud_imst.json
+tr.pos.tourism.json
+tr.pos.penn.json
+tr.pos.kenet.json
+tr.pos.imst.json
+tr.pos.framenet.json
+tr.pos.boun.json
+tr.pos.atis.json
