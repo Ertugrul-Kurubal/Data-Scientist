@@ -2,11 +2,11 @@ import pandas as pd
 import numpy as np
 import re
 
-#df_word = pd.read_excel("/media/kurubal/SSD1/Data Scientist/Work/Modern Ways/Project/Pyspark/Product/Sentence_Single.xlsx")
+#df_word = pd.read_excel("/media/kurubal/SSD/Data Scientist/Work/Modern Ways/Project/Pyspark/Product/Sentence_Single.xlsx")
 
 word_list = ["ramiro", "Thomas", "Peter","Arthur", "Kirkland", "Sizi","Ertugrul", "Gregor", "$ali", "20str", "evet","neden"]
 
-with open("/media/kurubal/SSD1/Data Scientist/Work/Modern Ways/Project/Pyspark/ReDe/xaa.tr", "r",encoding="latin1") as file:
+with open("/media/kurubal/SSD/Data Scientist/Work/Modern Ways/Project/Pyspark/ReDe/xaa.tr", "r",encoding="latin1") as file:
     text = file.read()
 
 
