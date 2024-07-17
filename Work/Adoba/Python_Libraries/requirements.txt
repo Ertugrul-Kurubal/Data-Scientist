@@ -25,3 +25,4 @@ wordcloud
 geopy
 geopandas
 geodatasets
+mplleaflet
