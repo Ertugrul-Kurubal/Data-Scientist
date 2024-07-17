@@ -23,3 +23,5 @@ pyodbc
 imutils
 wordcloud
 geopy
+geopandas
+geodatasets
