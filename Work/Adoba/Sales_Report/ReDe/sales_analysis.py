@@ -15,9 +15,9 @@ import seaborn as sns
 import glob
 import locale
 from locale import atof
-from geopy.geocoders import Nominatim
-from geopy.point import Point
-from geopy.exc import GeocoderTimedOut
+# from geopy.geocoders import Nominatim
+# from geopy.point import Point
+# from geopy.exc import GeocoderTimedOut
 from functools import reduce
 
 # custom character alphabet for word
@@ -112,7 +112,15 @@ def whitespace_del(text):
     text_var = text_var.strip()  # rstrip lstrip
     return text_var
 
+def file_path(source_path, source_file):
+    '''This function use for file path
+    file_path(path, file)
+    '''
+    source_path_file = rf"{source_path}\{source_file}"
+    return source_path_file
 
+# file = input(r"Enter file and path as C:\Users..")
+# df_entegra = pd.read_csv(fr"{file}.csv", low_memory=False)
 
 input_path = r"C:\Users\user\Desktop\Data Analysis\Adoba\Sales_Report\Data\Entegra\Sales\01.01.2024-11.07.2024"
 output_path = r"C:\Users\user\Downloads"
@@ -190,3 +198,6 @@ df_sales_name_quantity_entegration_drop = df_sales_name_quantity_entegration.dro
 df_sales_name_quantity_entegration_drop.reset_index(drop=True, inplace=True)
 
 df_sales_name_quantity_entegration_drop.to_excel(fr"{output_path}\Entegra Ürün Satış Rakamları Adet.xlsx", index=False)
+
+# result = df_sales_name_quantity_entegration_drop.to_html()
+# print(result)
