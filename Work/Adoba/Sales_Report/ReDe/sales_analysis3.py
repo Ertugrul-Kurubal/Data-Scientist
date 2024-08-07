@@ -1,8 +1,6 @@
 def file_path():
     '''This function use for file path for input data. \n
-    file_path(input_path, data_file, output_path): \n  
-    input_path is input data drive location, data_file is input file name \n
-    output_path is result data drive location.
+    file_path(): \n  .
     '''
     import unicodedata
     import datetime as dt
@@ -119,7 +117,7 @@ def file_path():
         return text_var
     
 
-    input_path_file = input(r"Enter path and file as C:\Users..")
+    input_path_file = input(r"Enter input path and file as C:\Users..")
     output_path = input(r"Enter output path as C:\Users..")
 
     df_entegra = pd.read_csv(fr"{input_path_file}.csv", low_memory=False)
