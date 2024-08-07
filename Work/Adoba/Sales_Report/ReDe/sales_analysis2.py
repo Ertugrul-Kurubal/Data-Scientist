@@ -117,17 +117,18 @@ def file_path(input_path, data_file, output_path):
         text_var = str(text)
         text_var = text_var.strip()  # rstrip lstrip
         return text_var
+    
 
     # file = input(r"Enter file and path as C:\Users..")
     # df_entegra = pd.read_csv(fr"{file}.csv", low_memory=False)
 
+
     # input_path = r"C:\Users\user\Desktop\Data Analysis\Adoba\Sales_Report\Data\Entegra\Sales\01.01.2024-11.07.2024"
     # output_path = r"C:\Users\user\Downloads"
-    # 
     # data_file = r"Entegra_Sales_List (01.01.2024-11.07.2024)"
 
-
     df_entegra = pd.read_csv(fr"{input_path}\{data_file}.csv", low_memory=False)
+
 
     df_entegra.columns = [x.lower() for x in df_entegra.columns]
     df_entegra.columns = [x.strip() for x in df_entegra.columns]
