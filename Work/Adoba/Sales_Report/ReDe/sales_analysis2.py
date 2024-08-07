@@ -118,6 +118,9 @@ def file_path(input_path, data_file, output_path):
         text_var = text_var.strip()  # rstrip lstrip
         return text_var
 
+    # file = input(r"Enter file and path as C:\Users..")
+    # df_entegra = pd.read_csv(fr"{file}.csv", low_memory=False)
+
     # input_path = r"C:\Users\user\Desktop\Data Analysis\Adoba\Sales_Report\Data\Entegra\Sales\01.01.2024-11.07.2024"
     # output_path = r"C:\Users\user\Downloads"
     # 
@@ -195,7 +198,9 @@ def file_path(input_path, data_file, output_path):
 
     df_sales_name_quantity_entegration_drop.to_excel(fr"{output_path}\Entegra Ürün Satış Rakamları Adet.xlsx", index=False)
 
-    return df_sales_name_quantity_entegration_drop
+    result = df_sales_name_quantity_entegration_drop.to_html()
+
+    return print(result)
 
     # result = df_sales_name_quantity_entegration_drop.to_html()
     # print(result)
