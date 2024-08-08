@@ -28,3 +28,4 @@ geodatasets
 mplleaflet
 streamlit
 joblib
+pickleshare
