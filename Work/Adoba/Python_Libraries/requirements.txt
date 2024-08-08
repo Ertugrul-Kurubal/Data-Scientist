@@ -26,3 +26,5 @@ geopy
 geopandas
 geodatasets
 mplleaflet
+streamlit
+joblib
