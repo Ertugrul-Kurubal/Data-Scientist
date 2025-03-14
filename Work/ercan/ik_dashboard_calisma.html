@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>İK Dashboard - Mobil Uyumlu ve Modern Tasarım</title>
+
+    <!-- Kütüphaneler -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-2.24.1.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="http://127.0.0.1:8000/favicon.ico">
+    <style>
+        :root {
+            --background-color: #F5F7FA;
+            --primary-color: #2C3E50;
+            --secondary-color: #3498DB;
+            --accent-color: #E74C3C;
+            --button-bg-color: #2C3E50;
+            --button-hover-color: #1ABC9C;
+            --button-text-color: #FFFFFF;
+            --card-bg-color: #FFFFFF;
+            --text-primary: #2C3E50;
+            --text-secondary: #7F8C8D;
+            --border-color: #DADFE1;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--background-color);
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-primary);
+            padding-bottom: 80px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 95%;
+            max-width: 1200px;
+            margin: 20px auto 10px;
+        }
+
+        .logo img {
+            width: 180px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .manager-photo img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .upload-float-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--button-bg-color);
+            color: var(--button-text-color);
+            border: none;
+            border-radius: 50px;
+            padding: 12px 18px;
+            font-size: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            z-index: 1000;
+        }
+
+        .upload-float-btn:hover {
+            background-color: var(--button-hover-color);
+            transform: scale(1.05);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .filters {
+            background: var(--card-bg-color);
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .filters div {
+            flex: 1 1 30%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filters label {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .filters select {
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            background: var(--background-color);
+            color: var(--text-primary);
+            width: 100%;
+        }
+
+        .kpi-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .kpi-card {
+            background: var(--card-bg-color);
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .kpi-card i {
+            font-size: 28px;
+            color: var(--secondary-color);
+            margin-bottom: 8px;
+        }
+
+        .kpi-card .title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .kpi-card .value {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary-color);
+        }
+
+        .kpi-card .sub-info {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        @media (max-width: 600px) {
+            .logo img {
+                width: 140px;
+            }
+
+            .manager-photo img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .upload-float-btn {
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="https://i.ibb.co/PzzFJNgv/logo.png" alt="City Gross Logo" title="City Gross - Toptan Market">
+        </div>
+        <div class="manager-photo">
+            <img src="https://i.ibb.co/gFtK3VBf/ikmdr.jpg" alt="İK Müdürü" title="İnsan Kaynakları Müdürü">
+        </div>
+    </div>
+
+    <div class="container">
+        <button onclick="resetFilters()" class="upload-float-btn">
+            <i class="fas fa-sync-alt"></i> Filtreleri Temizle
+        </button>
+
+        <input type="file" id="fileInput" accept=".xlsx, .xls" onchange="handleFileUpload(event)">
+
+        <div class="filters">
+            <div>
+                <label for="storeFilter">Mağaza Seç:</label>
+                <select id="storeFilter">
+                    <option>Tüm Mağazalar</option>
+                </select>
+            </div>
+            <div>
+                <label for="deptFilter">Departman Seç:</label>
+                <select id="deptFilter">
+                    <option>Tüm Departmanlar</option>
+                </select>
+            </div>
+            <div>
+                <label for="genderFilter">Cinsiyet:</label>
+                <select id="genderFilter">
+                    <option>Tümü</option>
+                    <option>Erkek</option>
+                    <option>Kadın</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="kpi-section">
+            <div class="kpi-card">
+                <i class="fas fa-users"></i>
+                <div class="title">Toplam Çalışan</div>
+                <div class="value" id="totalEmployees">0</div>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-chart-line"></i>
+                <div class="title">Personel Başı Ciro</div>
+                <div class="value" id="revenuePerPerson">0 ₺</div>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-birthday-cake"></i>
+                <div class="title">Ortalama Yaş</div>
+                <div class="value" id="avgAge">0</div>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-venus-mars"></i>
+                <div class="title">Cinsiyet Dağılımı</div>
+                <div class="sub-info">Kadın: <span id="femaleCount">0</span> | Erkek: <span id="maleCount">0</span></div>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-graduation-cap"></i>
+                <div class="title">Eğitim Durumu</div>
+                <div class="sub-info">
+                    MASTER: <span id="eduMaster">0</span> | ÜNİVERSİTE: <span id="eduUni">0</span><br>
+                    YÜKSEK OKUL: <span id="eduHighSchool">0</span> | LİSE: <span id="eduLise">0</span><br>
+                    İLKÖĞRETİM: <span id="eduMiddleSchool">0</span> | İLK OKUL: <span id="eduPrimary">0</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-briefcase"></i>
+                <div class="title">Deneyim</div>
+                <div class="sub-info">
+                    5YIL ÜZERİ: <span id="exp5Plus">0</span> | 4YIL: <span id="exp4Years">0</span><br>
+                    3YIL: <span id="exp3Years">0</span> | 2YIL: <span id="exp2Years">0</span><br>
+                    1YIL: <span id="exp1Year">0</span> | 6-12AY: <span id="exp6to12Months">0</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-user-friends"></i>
+                <div class="title">Medeni Hal</div>
+                <div class="sub-info">
+                    E: <span id="marriedE">0</span> | B: <span id="marriedB">0</span> | D: <span id="marriedD">0</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-sync-alt"></i>
+                <div class="title">Ayrılan Sayısı ve Oranı</div>
+                <div class="value" id="leftEmployees">0</div>
+                <div class="sub-info">Oran: <span id="leftRate">0%</span></div>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-smoking"></i>
+                <div class="title">Sigara Kullanımı</div>
+                <div class="sub-info">
+                    Evet: <span id="sigaraEvet">0</span> | Hayır: <span id="sigaraHayir">0</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-id-card"></i>
+                <div class="title">Ehliyet Dağılımı</div>
+                <div class="sub-info">
+                    A: <span id="ehliyetA">0</span> | B: <span id="ehliyetB">0</span><br>
+                    C: <span id="ehliyetC">0</span> | D: <span id="ehliyetD">0</span><br>
+                    E: <span id="ehliyetE">0</span> | Y: <span id="ehliyetY">0</span>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <i class="fas fa-user-plus"></i>
+                <div class="title">Başlayan Sayısı</div>
+                <div class="value" id="newEmployees">0</div>
+            </div>
+        </div>
+
+        <div class="charts-container">
+            <div id="chart-gender" class="chart"></div>
+            <div id="chart-education" class="chart"></div>
+            <div id="chart-experience" class="chart"></div>
+            <div id="chart-marital" class="chart"></div>
+            <div id="chart-join-leave" class="chart"></div>
+            <div id="chart-smoking" class="chart"></div>
+            <div id="chart-license" class="chart"></div>
+        </div>
+        
+        <style>
+            .charts-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 20px;
+                margin-top: 30px;
+            }
+            .chart {
+                background: var(--card-bg-color);
+                padding: 15px;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+        </style>
+        <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    fetchFilters();
+    fetchKPIData();
+});
+
+// 📌 **Filtreleri Güncelleyen Fonksiyon**
+function fetchFilters() {
+    fetch("http://127.0.0.1:8000/kpi_data.json")
+        .then(response => response.json())
+        .then(data => {
+            populateSelect("storeFilter", data.magazalar);
+            populateSelect("deptFilter", data.departmanlar);
+            populateSelect("genderFilter", data.cinsiyetler);
+        })
+        .catch(error => console.error("❌ Filtre verisi yüklenirken hata:", error));
+}
+
+// 📌 **Seçenekleri HTML'e Ekleyen Fonksiyon**
+function populateSelect(selectId, options) {
+    let select = document.getElementById(selectId);
+    if (!select) return;
+    
+    select.innerHTML = '<option value="">Tümü</option>';  // Varsayılan seçenek
+
+    options.forEach(option => {
+        let opt = document.createElement("option");
+        opt.value = option;
+        opt.textContent = option;
+        select.appendChild(opt);
+    });
+}
+
+// 📌 **KPI Verilerini Çeken Fonksiyon**
+function fetchKPIData() {
+    fetch("http://127.0.0.1:8000/kpi_data.json")
+        .then(response => response.json())
+        .then(data => {
+            console.log("📌 JSON Verisi Yüklendi:", data);
+
+            updateKPI("totalEmployees", data.toplamCalisan);
+            updateKPI("femaleCount", data.bayanSayisi);
+            updateKPI("maleCount", data.erkekSayisi);
+            updateKPI("newEmployees", data.girenPersonel);
+            updateKPI("leftEmployees", data.cikanPersonel);
+            updateKPI("leftRate", (data.ayrilmaOrani * 100).toFixed(1) + "%");
+            updateKPI("avgAge", data.ortalamaYas.toFixed(2));
+            updateKPI("revenuePerPerson", data.personelBasiCiro.toFixed(2) + " ₺");
+
+            // **EĞİTİM DURUMU**
+            updateKPI("eduMaster", data.egitimMaster);
+            updateKPI("eduUni", data.egitimUniversite);
+            updateKPI("eduHighSchool", data.egitimYuksekOkul);
+            updateKPI("eduLise", data.egitimLise);
+            updateKPI("eduMiddleSchool", data.egitimIlkogretim);
+            updateKPI("eduPrimary", data.egitimIlkOkul);
+
+            // **DENEYİM**
+            updateKPI("exp5Plus", data.deneyim5YilUzeri);
+            updateKPI("exp4Years", data.deneyim4Yil);
+            updateKPI("exp3Years", data.deneyim3Yil);
+            updateKPI("exp2Years", data.deneyim2Yil);
+            updateKPI("exp1Year", data.deneyim1Yil);
+            updateKPI("exp6to12Months", data.deneyim6_12Ay);
+
+           // Sigara Kullanımı
+           updateKPI("sigaraEvet", data.sigaraEvet);
+            updateKPI("sigaraHayir", data.sigaraHayir);
+
+            // Ehliyet Kullanımı
+            updateKPI("ehliyetA", data.ehliyetA);
+            updateKPI("ehliyetB", data.ehliyetB);
+            updateKPI("ehliyetC", data.ehliyetC);
+            updateKPI("ehliyetD", data.ehliyetD);
+            updateKPI("ehliyetE", data.ehliyetE);
+            updateKPI("ehliyetY", data.ehliyetY);
+
+            // **MEDENİ HAL**
+            updateKPI("marriedE", data.medeniHalE);
+            updateKPI("marriedB", data.medeniHalB);
+            updateKPI("marriedD", data.medeniHalD);
+        })
+        .catch(error => console.error("❌ KPI verisi yüklenirken hata:", error));
+}
+// 📌 **Filtreleme Fonksiyonu**
+function applyFilters() {
+    const store = document.getElementById("storeFilter").value || "Tümü";
+    const department = document.getElementById("deptFilter").value || "Tümü";
+    const gender = document.getElementById("genderFilter").value || "Tümü";
+
+    const filterData = { magaza: store, departman: department, cinsiyet: gender };
+
+    fetch("http://127.0.0.1:8000/apply_filters", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(filterData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("📌 Filtreleme başarılı:", data);
+        fetchKPIData();  // **Filtre değiştiğinde KPI kartlarını hemen güncelle**
+    })
+    .catch(error => console.error("❌ HATA: Filtreleme sırasında hata oluştu ->", error));
+}
+
+// 📌 **Filtreleri Temizleme Fonksiyonu**
+function resetFilters() {
+    console.log("📌 Filtreler temizleniyor...");
+    
+    fetch("http://127.0.0.1:8000/clear_filters", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("📌 Filtreler temizlendi:", data);
+
+        // Filtreleri temizle
+        document.getElementById("storeFilter").value = "";
+        document.getElementById("deptFilter").value = "";
+        document.getElementById("genderFilter").value = "";
+
+        // KPI verilerini tekrar çek
+        fetchKPIData();
+    })
+    .catch(error => console.error("❌ HATA: Filtreleri temizleme sırasında hata oluştu ->", error));
+}
+
+function generateCharts() {
+    // 🎨 **Cinsiyet Dağılımı**
+    var genderData = [{
+        values: [parseInt(document.getElementById("femaleCount").innerText), 
+                 parseInt(document.getElementById("maleCount").innerText)],
+        labels: ["Kadın", "Erkek"],
+        type: "pie",
+        marker: {colors: ["#E74C3C", "#3498DB"]}
+    }];
+    Plotly.react("chart-gender", genderData, {title: "Cinsiyet Dağılımı", width: 350, height: 350});
+
+    // 🎨 **Eğitim Durumu**
+    var educationData = [{
+        x: ["Master", "Üniversite", "Yüksek Okul", "Lise", "İlköğretim", "İlk Okul"],
+        y: [
+            parseInt(document.getElementById("eduMaster").innerText),
+            parseInt(document.getElementById("eduUni").innerText),
+            parseInt(document.getElementById("eduHighSchool").innerText),
+            parseInt(document.getElementById("eduLise").innerText),
+            parseInt(document.getElementById("eduMiddleSchool").innerText),
+            parseInt(document.getElementById("eduPrimary").innerText)
+        ],
+        type: "bar",
+        marker: {color: ["#1ABC9C", "#3498DB", "#E74C3C", "#9B59B6", "#F39C12", "#95A5A6"]}
+    }];
+    Plotly.react("chart-education", educationData, {title: "Eğitim Durumu", width: 400, height: 350});
+
+    // 🎨 **Deneyim Durumu**
+    var experienceData = [{
+        x: ["5Yıl Üzeri", "4Yıl", "3Yıl", "2Yıl", "1Yıl", "6-12Ay"],
+        y: [
+            parseInt(document.getElementById("exp5Plus").innerText),
+            parseInt(document.getElementById("exp4Years").innerText),
+            parseInt(document.getElementById("exp3Years").innerText),
+            parseInt(document.getElementById("exp2Years").innerText),
+            parseInt(document.getElementById("exp1Year").innerText),
+            parseInt(document.getElementById("exp6to12Months").innerText)
+        ],
+        type: "bar",
+        marker: {color: "#E67E22"}
+    }];
+    Plotly.react("chart-experience", experienceData, {title: "Deneyim Durumu", width: 400, height: 350});
+
+    // 🎨 **Medeni Hal**
+    var maritalData = [{
+        values: [
+            parseInt(document.getElementById("marriedE").innerText),
+            parseInt(document.getElementById("marriedB").innerText),
+            parseInt(document.getElementById("marriedD").innerText)
+        ],
+        labels: ["Evli", "Bekar", "Dul"],
+        type: "pie",
+        marker: {colors: ["#2C3E50", "#E67E22", "#9B59B6"]}
+    }];
+    Plotly.react("chart-marital", maritalData, {title: "Medeni Hal", width: 350, height: 350});
+
+    // 🎨 **Başlayan - Ayrılan Sayısı**
+    var joinLeaveData = [{
+        x: ["Başlayan", "Ayrılan"],
+        y: [
+            parseInt(document.getElementById("newEmployees").innerText),
+            parseInt(document.getElementById("leftEmployees").innerText)
+        ],
+        type: "bar",
+        marker: {color: ["#2ECC71", "#E74C3C"]}
+    }];
+    Plotly.react("chart-join-leave", joinLeaveData, {title: "Başlayan & Ayrılan", width: 400, height: 350});
+
+    // 🎨 **Sigara Kullanımı**
+    var smokingData = [{
+        values: [
+            parseInt(document.getElementById("sigaraEvet").innerText),
+            parseInt(document.getElementById("sigaraHayir").innerText)
+        ],
+        labels: ["Evet", "Hayır"],
+        type: "pie",
+        marker: {colors: ["#16A085", "#F1C40F"]}
+    }];
+    Plotly.react("chart-smoking", smokingData, {title: "Sigara Kullanımı", width: 350, height: 350});
+
+    // 🎨 **Ehliyet Dağılımı**
+    var licenseData = [{
+        x: ["A", "B", "C", "D", "E", "Y"],
+        y: [
+            parseInt(document.getElementById("ehliyetA").innerText),
+            parseInt(document.getElementById("ehliyetB").innerText),
+            parseInt(document.getElementById("ehliyetC").innerText),
+            parseInt(document.getElementById("ehliyetD").innerText),
+            parseInt(document.getElementById("ehliyetE").innerText),
+            parseInt(document.getElementById("ehliyetY").innerText)
+        ],
+        type: "bar",
+        marker: {color: "#8E44AD"}
+    }];
+    Plotly.react("chart-license", licenseData, {title: "Ehliyet Dağılımı", width: 400, height: 350});
+}
+
+// 📌 **Grafikleri her 3 saniyede bir güncelle**
+setInterval(generateCharts, 3000);
+
+
+// 📌 **KPI Kartlarını Güncelleyen Fonksiyon**
+function updateKPI(elementId, value) {
+    const element = document.getElementById(elementId);
+    if (element) {
+        element.innerText = value || "0";  // **Eğer değer yoksa 0 yaz**
+    } else {
+        console.warn("⚠️ Uyarı: '" + elementId + "' ID'li öğe bulunamadı.");
+    }
+}
+
+// 📌 **Filtreler değiştiğinde `applyFilters` çalışsın**
+document.getElementById("storeFilter").addEventListener("change", applyFilters);
+document.getElementById("deptFilter").addEventListener("change", applyFilters);
+document.getElementById("genderFilter").addEventListener("change", applyFilters);
+
+// 📌 **Filtreleri temizleme butonu ekle**
+document.getElementById("resetFiltersBtn").addEventListener("click", resetFilters);
+
+// 📌 **Her 2 saniyede bir API'yi çağırıp günceller**
+setInterval(fetchKPIData, 2000);
+            </script>
+    
+</body>
+</html>
